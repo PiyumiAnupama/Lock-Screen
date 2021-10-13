@@ -1,4 +1,4 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {Component} from 'react';
 import {
   View,
   Text,
@@ -10,6 +10,23 @@ import {
 } from 'react-native';
 
 export default class ApplicationLocked extends Component {
+  constructor() {
+    super();
+    this.state = {
+      seconds: 60,
+      minutes: 4,
+    };
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({seconds: this.state.seconds - 1});
+      if (this.seconds == 0) {
+        this.setState({minutes: this.state.minutes - 1});
+      }
+    }, 1000);
+  }
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -22,6 +39,11 @@ export default class ApplicationLocked extends Component {
           }}>
           <View>
             <Text style={styles.Text}> Maximum attempts reached</Text>
+          </View>
+          <View style={styles.Time}>
+            <Text style={styles.Text4}>
+            {this.state.minutes} : {this.state.seconds}
+            </Text>
           </View>
           <View style={styles.image}>
             <Image source={require('../assets/Image/Icon/LOCK.png')} />
@@ -49,11 +71,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   Text: {
-    fontFamily: 'Roboto-Black',
+    fontFamily: 'Roboto-Light',
     fontSize: 25,
     color: '#92969f',
     letterSpacing: 0.34,
     lineHeight: 25,
+    marginBottom: 50,
   },
 
   image: {
@@ -64,8 +87,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   Text2: {
-    marginTop: 50,
-    fontFamily: 'Roboto-Black',
+    marginTop: 80,
+    fontFamily: 'Roboto-Light',
     fontSize: 22,
     color: '#92969f',
     letterSpacing: 0.34,
@@ -79,13 +102,31 @@ const styles = StyleSheet.create({
     backgroundColor: '#a6dde0',
     width: 100,
     height: 60,
-    marginTop: 300,
+    marginTop: 150,
     alignContent: 'center',
     justifyContent: 'center',
   },
   Text3: {
-    fontFamily: 'Roboto-Black',
+    fontFamily: 'Roboto-Light',
     fontSize: 22,
     marginLeft: 20,
+  },
+  Text4: {
+    fontSize: 20,
+    color: '#313334',
+    textAlign: 'center',
+    justifyContent: 'center',
+    fontFamily: 'Roboto-Light',
+    padding: 8,
+    color: 'red',
+    height: 40,
+    width: 100,
+  },
+  Time: {
+    alignContent: 'center',
+    justifyContent: 'center',
+    borderColor: 'gray',
+    textShadowRadius: 10,
+    borderWidth: 3,
   },
 });
