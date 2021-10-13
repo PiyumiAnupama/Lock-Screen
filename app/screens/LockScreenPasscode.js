@@ -8,6 +8,7 @@ import {
   View,
   Text,
   StyleSheet,
+  Alert,
 } from 'react-native';
 
 class LockScreenPasscode extends Component {
@@ -17,6 +18,22 @@ class LockScreenPasscode extends Component {
       passcode: ['', '', '', ''],
     };
   }
+  _popUpMsg = () => {
+    let text = this.state.passcode.toString('1', '2', '3', '4');
+    if ((text == '1', '2', '3', '4')) {
+      Alert.alert('Success!..', ' App will redirect you to the home now!', [
+        {text: 'ok.'},
+      ]);
+    } else {
+      for (var i = 1; i <= 3; i++) {
+        if ((text != '1', '2', '3', '4')) {
+          Alert.alert('Retry!..', ' Please enter your PIN Again!', [
+            {text: 'ok.'},
+          ]);
+        }
+      }
+    }
+  };
 
   _onPressNumber = num => {
     let tempCode = this.state.passcode;
@@ -91,6 +108,11 @@ class LockScreenPasscode extends Component {
               <TouchableOpacity onPress={() => this._onPressCancel()}>
                 <Image source={require('../assets/Image/Icon/ICON.png')} />
               </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.number2}
+                onPress={() => this._popUpMsg()}>
+                <Text style={styles.numText2}>OK</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -108,7 +130,7 @@ const styles = StyleSheet.create({
   },
   Text: {
     marginTop: 10,
-    fontFamily: 'Roboto-Black',
+    fontFamily: 'Roboto-Light',
     fontSize: 25,
     color: '#92969f',
     letterSpacing: 0.34,
@@ -162,12 +184,28 @@ const styles = StyleSheet.create({
   numText: {
     color: '#92969f',
     textAlign: 'center',
-    fontFamily: 'Roboto-Black',
+    fontFamily: 'Roboto-Light',
     fontSize: 38,
   },
-
   buttons: {
     alignItems: 'center',
     marginRight: -65,
+  },
+  numText2: {
+    color: '#92969f',
+    fontFamily: 'Roboto-Light',
+    fontSize: 20,
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
+  number2: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 75,
+    height: 75,
+    marginTop: -60,
+    marginLeft: -340,
+    borderRadius: 75,
+    backgroundColor: '#f0f3fa',
   },
 });
