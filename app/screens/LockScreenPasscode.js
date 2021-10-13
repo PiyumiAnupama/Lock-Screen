@@ -20,7 +20,7 @@ class LockScreenPasscode extends Component {
   }
   _popUpMsg = () => {
     let text = this.state.passcode.toString('1', '2', '3', '4');
-    if ((text == '1', '2', '3', '4')) {
+    if (text == '1, 2, 3, 4') {
       Alert.alert('Success!..', ' App will redirect you to the home now!', [
         {text: 'ok.'},
       ]);
